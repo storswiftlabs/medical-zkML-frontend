@@ -9,7 +9,7 @@ function Avatar() {
         <div className='mb-[1rem]'>
             <User
                 name={address}
-                description='Focus 0  Chinese Vermicelli 0  Favoured 0'
+                description='Medical'
                 avatarProps={{
                     className: 'rounded-[10%]',
                     size: 'lg',

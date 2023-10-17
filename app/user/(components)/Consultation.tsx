@@ -112,6 +112,12 @@ export default function Consultation({ onDataReceived }: { onDataReceived: (leng
 		[allData, pagination.pageSize, updatePaginationData]
 	);
 
+	function splitStringWithRegex(str: string) {
+		const regex = /\d+\.[\s\S]+?(?=\d+\.)|\d+\.[\s\S]+$/g;
+		const result = str.match(regex);
+		return result;
+	}
+
 	useEffect(() => {
 		const newData = updatePaginationData(allData, pagination.pageNum, pagination.pageSize);
 		setPagination((prevPagination) => updatePaginationState(prevPagination, newData, pagination.pageNum));
@@ -121,16 +127,17 @@ export default function Consultation({ onDataReceived }: { onDataReceived: (leng
 		try {
 			const suggestion = await postRecommend({ disease: name });
 			if (suggestion?.data) {
-				const processedArray = suggestion.data.map((i: any) => `https://ipfs.io/ipfs/${i}`);
-				const fetchPromises = processedArray.map((url: string) => fetchList(url));
-				const results = await Promise.all(fetchPromises);
-				setPredictingOutcomes({ result, suggestion: results });
+				const processedArray = `https://ipfs.io/ipfs/${suggestion.data}`;
+				const fetchPromises = await fetchList(processedArray);
+				const strArr = splitStringWithRegex(fetchPromises);
+				setPredictingOutcomes({ result, suggestion: strArr || [''] });
 			}
 		} catch (error) {
 			console.error(error);
+		} finally {
+			setIsModal(true);
+			onOpen();
 		}
-		setIsModal(true);
-		onOpen();
 	};
 
 	const handleOpenDetail = (user: OutcomesType_Data) => {

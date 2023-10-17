@@ -29,7 +29,7 @@ const SelectDiv = (name: string, items: any[], register: any, setValue: any) => 
 
 	return (
 		<div className='flex items-center justify-between'>
-			<span className=' text-[#773247] mr-[0.4rem]'>{name} :</span>
+			<span className=' text-[#773247] mr-[0.4rem]'>{name}</span>
 			<Dropdown>
 				<DropdownTrigger>
 					<Button variant='bordered' className='capitalize w-[18rem] justify-between'>

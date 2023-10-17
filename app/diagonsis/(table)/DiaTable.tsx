@@ -8,8 +8,11 @@ import EnterModal from '../components/EnterModal';
 import '@/components/index.css';
 import { Data, Datum, OperatorList } from '@/constant/Api';
 import { getDiseaseInfo, getDiseases, getOperatorList } from '@/utils/request';
+import { useAccount } from 'wagmi';
+import { useRouter } from 'next/navigation';
 
 export default function DiaTable() {
+	const { address } = useAccount();
 	const [isOpen1, setIsOpen1] = useState(false);
 	const { onOpen } = useDisclosure();
 	const [allData, setAllData] = useState<Datum[]>([]); // Receive all data
@@ -18,6 +21,9 @@ export default function DiaTable() {
 	const [enterObject, setEnterObject] = useState({} as Data); // Diagnostic information data
 	const [operatorList, setOperatorList] = useState<OperatorList[]>([]); // list of operators
 	const search = searchParams.get('source');
+	const searchName = searchParams.get('name');
+	const router = useRouter();
+
 	const [pagination, setPagination] = useState({
 		data: [] as Datum[],
 		count: 0, // aggregate
@@ -62,53 +68,63 @@ export default function DiaTable() {
 		}));
 	}, [allData, pagination.pageSize]);
 
-	const handleOpen1 = async (Name: string) => {
-		try {
-			const [res, resp] = await Promise.all([getDiseaseInfo({ Disease: Name }), getOperatorList()]);
-			setEnterObject(res.data);
-			setOperatorList(resp.data);
-			setIsOpen1(true);
-		} catch (error) {
-			console.error(error);
-		}
-	};
+	const handleOpen1 = useCallback(
+		async (Name: string) => {
+			if (!address) {
+				router.push('/diagonsis');
+				return alert('Please login first');
+			}
+			try {
+				const [res, resp] = await Promise.all([getDiseaseInfo({ Disease: Name }), getOperatorList()]);
+				setEnterObject(res.data);
+				setOperatorList(resp.data);
+				setIsOpen1(true);
+			} catch (error) {
+				console.error(error);
+			}
+		},
+		[address, router]
+	);
 
 	const onClose1 = () => {
 		setIsOpen1(false);
 	};
 
-	const renderCell = useCallback((item: Datum, columnKey: React.Key, index: number) => {
-		switch (columnKey) {
-			case 'id':
-				return <div>{index + 1}</div>;
-			case 'name':
-				return (
-					<User
-						avatarProps={{ radius: 'full', size: 'sm' }}
-						classNames={{
-							description: 'text-default-500',
-						}}
-						name={item.Name}
-					></User>
-				);
-			case 'description':
-				return (
-					<div className='py-[1rem]'>
-						<Tooltip placement='top' className='bg-[#dee1e6] w-[40rem]' content={item.Description}>
-							<span className='containerText1 w-[30rem] '>{item.Description}</span>
-						</Tooltip>
-					</div>
-				);
-			case 'actions':
-				return (
-					<div className='relative flex justify-end items-center gap-2'>
-						<Button onClick={() => handleOpen1(item.Name)} color='primary' variant='faded'>
-							Enter the diagnosis
-						</Button>
-					</div>
-				);
-		}
-	}, []);
+	const renderCell = useCallback(
+		(item: Datum, columnKey: React.Key, index: number) => {
+			switch (columnKey) {
+				case 'id':
+					return <div>{index + 1}</div>;
+				case 'name':
+					return (
+						<User
+							avatarProps={{ radius: 'full', size: 'sm' }}
+							classNames={{
+								description: 'text-default-500',
+							}}
+							name={item.Name}
+						/>
+					);
+				case 'description':
+					return (
+						<div className='py-[1rem]'>
+							<Tooltip placement='top' className='bg-[#dee1e6] w-[40rem]' content={item.Description}>
+								<span className='containerText1 w-[30rem] '>{item.Description}</span>
+							</Tooltip>
+						</div>
+					);
+				case 'actions':
+					return (
+						<div className='relative flex justify-end items-center gap-2'>
+							<Button onClick={() => handleOpen1(item.Name)} color='primary' variant='faded'>
+								Enter the diagnosis
+							</Button>
+						</div>
+					);
+			}
+		},
+		[handleOpen1]
+	);
 
 	const updatePagination = useMemo(
 		() => (value: string) => {
@@ -136,10 +152,11 @@ export default function DiaTable() {
 
 	useEffect(() => {
 		if (search) {
-			// If you are jumping from a HOME page, you need to open the window for uploading images.
 			handleOpen();
+		} else if (searchName) {
+			handleOpen1(searchName);
 		}
-	}, [search, handleOpen]);
+	}, [search, searchName, handleOpen, handleOpen1, router]);
 
 	const TopContent = useMemo(() => {
 		return (
@@ -221,7 +238,6 @@ export default function DiaTable() {
 				bottomContentPlacement='outside'
 				showSelectionCheckboxes={false}
 				classNames={classNames}
-				selectionMode='multiple'
 				topContent={TopContent}
 				topContentPlacement='outside'
 				className='p-[1rem] pt-[0] w-full'

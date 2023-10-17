@@ -9,10 +9,10 @@ import { Card, CardBody, CardHeader, Tooltip } from '@nextui-org/react';
 import { Heart } from './Icon/AcmeLogo';
 import { Datum } from '@/constant/Api';
 import { getDiseases } from '@/utils/request';
+import Link from 'next/link';
 
 export default function SwiperNext() {
 	const [allData, setAllData] = useState<Datum[]>([]); // Receive all data
-
 	useEffect(() => {
 		gettingData();
 	}, []);
@@ -25,17 +25,16 @@ export default function SwiperNext() {
 			console.log(error);
 		}
 	};
-
 	return (
 		<>
 			<Swiper
 				slidesPerView={3}
+				centeredSlides={true}
 				spaceBetween={0}
 				speed={1000}
 				autoplay={{
 					delay: 1000,
 					disableOnInteraction: false,
-					pauseOnMouseEnter: true,
 				}}
 				loop={true}
 				effect='cards' // Setting up card effects
@@ -43,29 +42,31 @@ export default function SwiperNext() {
 					slideShadows: false, // Whether to show shadows between cards
 				}}
 				navigation={true}
-				modules={[Pagination, Navigation, Autoplay]}
+				modules={[Autoplay, Pagination, Navigation]}
 				className='mySwiper'
 			>
 				{allData.map((i, index) => {
 					return (
 						<SwiperSlide key={index}>
-							<div key={index} className='p-[1rem]'>
-								<Card
-									isBlurred
-									className='cursor-pointer w-[90%] py-[1rem] h-[16rem] card hover:scale-105 transition duration-300 flex direction direct bg-background/60'
-								>
-									<CardHeader>
-										<div className='flex items-center'>
-											<Heart />
-											<span className='ml-4'>{i.Name}</span>
-										</div>
-									</CardHeader>
-									<CardBody className='pt-[0]'>
-										<Tooltip className='max-w-[30rem]' placement='bottom' content={i.Description}>
-											<div className='overflow-hidden overflow-ellipsis line-clamp-4'>{i.Description}</div>
-										</Tooltip>
-									</CardBody>
-								</Card>
+							<div key={index} className='p-[1rem] min-w-full'>
+								<Link href={`/diagonsis?name=${i.Name}`}>
+									<Card
+										isBlurred
+										className='cursor-pointer w-[90%] py-[1rem] h-[16rem] card hover:scale-105 transition duration-300 flex direction direct bg-background/60'
+									>
+										<CardHeader>
+											<div className='flex items-center'>
+												<Heart />
+												<span className='ml-4'>{i.Name}</span>
+											</div>
+										</CardHeader>
+										<CardBody className='pt-[0]'>
+											<Tooltip className='max-w-[30rem]' placement='bottom' content={i.Description}>
+												<div className='overflow-hidden overflow-ellipsis line-clamp-4'>{i.Description}</div>
+											</Tooltip>
+										</CardBody>
+									</Card>
+								</Link>
 							</div>
 						</SwiperSlide>
 					);

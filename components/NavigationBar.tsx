@@ -14,8 +14,7 @@ export default function NavigationBar() {
 	const pathname = usePathname();
 	const { isConnected, address } = useAccount({
 		async onConnect({ address, connector, isReconnected }) {
-			if (isReconnected) {
-				const res = await postUser({ address });
+			if (connector) {
 			}
 		},
 	});
@@ -23,6 +22,14 @@ export default function NavigationBar() {
 	useEffect(() => {
 		setIsClient(true);
 	}, []);
+
+	useEffect(() => {
+		address && connectedUser(address);
+	}, [isConnected, address]);
+
+	const connectedUser = async (address: `0x${string}`) => {
+		const res = await postUser({ address });
+	};
 
 	const name = {
 		item: [

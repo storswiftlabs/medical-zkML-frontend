@@ -22,7 +22,7 @@ function ArticleList() {
 
     const getInformation = async (address: any) => {
         const res = await postOutcomes({ user: address });
-        const uniqueDiseases = [...new Set(res.data.map((item) => item.Disease))];
+        const uniqueDiseases = [...new Set(res?.data?.map((item) => item.Disease))];
         const resp = await postArticle({ diseases: uniqueDiseases });
         if (resp.ok) {
             setArticleList(resp.data);

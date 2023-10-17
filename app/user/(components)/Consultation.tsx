@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
@@ -29,6 +30,7 @@ import { ethers } from 'ethers';
 import { useAccount } from 'wagmi';
 import { PlusIcon, SearchIcon } from '@/components/Icon/AcmeLogo';
 import formatData from '@/utils/formatData';
+import { useRouter } from 'next/navigation';
 
 const statusColorMap: Record<string, ChipProps['color']> = {
 	active: 'success',
@@ -37,6 +39,7 @@ const statusColorMap: Record<string, ChipProps['color']> = {
 };
 
 export default function Consultation({ onDataReceived }: { onDataReceived: (length: any) => void }) {
+	const router = useRouter();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { address } = useAccount();
 	const [pagination, setPagination] = useState({
@@ -77,7 +80,7 @@ export default function Consultation({ onDataReceived }: { onDataReceived: (leng
 
 	useEffect(() => {
 		fetchData();
-	}, [fetchData]);
+	}, []);
 
 	// paging function
 	const paginateData = (data: string | any[], pageNum: number, pageSize: number) => {
@@ -188,6 +191,11 @@ export default function Consultation({ onDataReceived }: { onDataReceived: (leng
 		},
 		[address, fetchData]
 	);
+
+	useEffect(() => {
+		if (!address) return router.push('/');
+	}, [address]);
+
 	const viewModal = useCallback(() => {
 		const modalHeader = isModal ? `Diagnosis: ${predictingOutcomes.result}` : 'Uploading records';
 		const modalBody = isModal ? (

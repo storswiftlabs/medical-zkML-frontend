@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
@@ -150,6 +149,7 @@ export default function Consultation({ onDataReceived }: { onDataReceived: (leng
 	};
 	const onFinish: CountdownProps['onFinish'] = () => {
 		// chronograph trigger
+		location.reload();
 		console.log('finished!');
 	};
 
@@ -201,7 +201,7 @@ export default function Consultation({ onDataReceived }: { onDataReceived: (leng
 
 	useEffect(() => {
 		if (!address) return router.push('/');
-	}, [address]);
+	}, [address,router]);
 
 	const viewModal = useCallback(() => {
 		const modalHeader = isModal ? `Diagnosis: ${predictingOutcomes.result}` : 'Uploading records';

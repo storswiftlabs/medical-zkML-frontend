@@ -251,7 +251,7 @@ export default function DiaTable() {
 				</TableHeader>
 				<TableBody emptyContent={'No users found'} items={pagination.data}>
 					{pagination.data.map((item, index) => (
-						<TableRow key={item.Name}>{(columnKey) => <TableCell>{renderCell(item, columnKey, index)}</TableCell>}</TableRow>
+						<TableRow key={index}>{(columnKey) => <TableCell>{renderCell(item, columnKey, index)}</TableCell>}</TableRow>
 					))}
 				</TableBody>
 			</Table>

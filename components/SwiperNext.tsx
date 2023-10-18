@@ -25,23 +25,30 @@ export default function SwiperNext() {
 			console.log(error);
 		}
 	};
+
 	return (
 		<>
 			<Swiper
 				slidesPerView={3}
-				centeredSlides={true}
 				spaceBetween={0}
 				speed={1000}
 				autoplay={{
 					delay: 1000,
 					disableOnInteraction: false,
+					reverseDirection: false,
 				}}
+				pagination={{
+					clickable: true,
+				}}
+				direction={'horizontal'}
+				noSwiping={true}
+				initialSlide={1}
 				loop={true}
 				effect='cards' // Setting up card effects
 				cardsEffect={{
 					slideShadows: false, // Whether to show shadows between cards
 				}}
-				navigation={true}
+				// navigation={true}
 				modules={[Autoplay, Pagination, Navigation]}
 				className='mySwiper'
 			>

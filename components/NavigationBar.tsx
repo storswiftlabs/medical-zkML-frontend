@@ -18,7 +18,6 @@ export default function NavigationBar() {
 			}
 		},
 	});
-
 	useEffect(() => {
 		setIsClient(true);
 	}, []);

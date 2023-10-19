@@ -214,11 +214,12 @@ export default function Consultation({ onDataReceived }: { onDataReceived: (leng
 		const modalBody = isModal ? (
 			<div>
 				<div className='mb-1'>
-					<span className=' font-[600]'>Your diagnosis is</span> : {predictingOutcomes.result}
+					<span className=' font-[600]'>The diagnosis is</span> : <div>{predictingOutcomes.result}</div>
 				</div>
 				<div>
 					<span className=' font-[600]'>Results of current disease diagnostic appearances :</span>
 				</div>
+				
 				<ul className='list-disc px-[2rem]'>
 					{predictingOutcomes.nameList.map((item, i) => {
 						return (
@@ -228,6 +229,9 @@ export default function Consultation({ onDataReceived }: { onDataReceived: (leng
 						);
 					})}
 				</ul>
+				<div>
+					<span className=' font-[600]'>The following are your disease recommendations :</span>
+				</div>
 				<ul className='list-disc px-[2rem]'>
 					{predictingOutcomes.suggestion.map((i) => (
 						<li className='my-[0.4rem]' key={i}>

@@ -68,6 +68,7 @@ export interface OutcomesType_Data {
 	Inputs: string;
 	Message: string;
 	Output: string;
+	Module:string
 }
 
 export interface ArticleType {

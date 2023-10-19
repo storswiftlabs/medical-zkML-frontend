@@ -72,6 +72,8 @@ const RenderCell = ({
 	};
 
 	switch (columnKey) {
+        case 'Module':
+            return  <>{user.Module}</>
 		case 'Output':
 			return <>{outputFunction(user.Output)}</>;
 		case 'id':

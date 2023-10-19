@@ -9,7 +9,7 @@ import { postPrediction } from '@/utils/request';
 import Link from 'next/link';
 import { useAccount } from 'wagmi';
 
-const SelectDiv = (name: string, items: any[], register: any, setValue: any) => {
+const SelectDiv = (name: string, items: any[], register: any, setValue: any, index: number) => {
 	const [selectedKeys, setSelectedKeys] = useState<any>(new Set([items[0].Key]));
 
 	const selectedValue = useMemo(() => Array.from(selectedKeys).join(', ').replaceAll('_', ' '), [selectedKeys]);
@@ -28,7 +28,7 @@ const SelectDiv = (name: string, items: any[], register: any, setValue: any) => 
 	}
 
 	return (
-		<div className='flex items-center justify-between'>
+		<div className='flex items-center justify-between' key={index}>
 			<span className=' text-[#773247] mr-[0.4rem]'>{name}</span>
 			<Dropdown>
 				<DropdownTrigger>
@@ -103,6 +103,7 @@ function EnterModal({
 			};
 
 			for (let key in data) {
+				
 				let matchedInput = enterObject.Inputs.find((item) => item.Name === key);
 				if (matchedInput) {
 					result.inputs.push({
@@ -119,7 +120,7 @@ function EnterModal({
 				console.error('Error:', error);
 			}
 		},
-		[enterObject, selectedKeys, address,page]
+		[enterObject, selectedKeys, address, page]
 	);
 
 	const judgingFunction = (setArr: any) => {
@@ -173,9 +174,9 @@ function EnterModal({
 		}
 	};
 
-	const InputDiv = ({ errors, register, name, select }: any) => {
+	const InputDiv = ({ errors, register, name, select, index }: any) => {
 		return (
-			<div className='flex items-center justify-between'>
+			<div className='flex items-center justify-between' key={index}>
 				<span className=' text-[#773247] mr-[0.4rem]'>{name}</span>
 				<Input
 					className='w-[18rem]'
@@ -197,10 +198,10 @@ function EnterModal({
 						{enterObject?.Inputs?.map((item, index) => {
 							if (item.InputMethod === 'input') {
 								//The delegate is input
-								return InputDiv({ register, errors, name: item.Name, select: item.Select });
+								return InputDiv({ register, errors, name: item.Name, select: item.Select, index });
 							} else {
 								// Representatives are drop-down boxes
-								return SelectDiv(item.Name, item.Select, register, setValue);
+								return SelectDiv(item.Name, item.Select, register, setValue, index);
 							}
 						})}
 					</div>
@@ -212,8 +213,8 @@ function EnterModal({
 			</div>
 		);
 	}, [errors, enterObject, handleSubmit, register, setValue, onSubmit]);
-	console.log(page,'page');
-	
+	console.log(page, 'page');
+
 	const ModalElementB = useCallback(() => {
 		const modal = [...selectedKeys];
 		return (
@@ -248,6 +249,7 @@ function EnterModal({
 	return (
 		<>
 			<Modal
+				hideCloseButton
 				scrollBehavior='inside'
 				size={'5xl'}
 				isOpen={isOpen}

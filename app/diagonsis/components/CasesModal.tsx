@@ -140,6 +140,7 @@ export default function CasesModal({ isOpen, onClose, operatorList }: { isOpen: 
 	return (
 		<>
 			<Modal
+				hideCloseButton
 				size={'5xl'}
 				isOpen={isOpen}
 				onClose={() => {

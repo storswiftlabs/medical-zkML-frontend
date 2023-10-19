@@ -1,8 +1,8 @@
 const columns = [
     { name: "ID", uid: "id" },
-    { name: "Presumptive diagnosis operator", uid: "name", },
+    { name: "Presumptive Diagnosis Operator", uid: "name", },
     { name: "Description", uid: "description", },
-    { name: "ACTIONS", uid: "actions" },
+    { name: "Actions", uid: "actions" },
 ];
 
 export { columns };

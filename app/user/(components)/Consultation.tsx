@@ -22,7 +22,7 @@ import {
 import { columns } from './(table)/data';
 import '@/components/index.css';
 import { CountdownProps } from 'antd/es/statistic/Countdown';
-import { fetchList, postDiagnosticDeletion, postOutcomes, postRecommend } from '@/utils/request';
+import { fetchList, getDiseaseInfo, postDiagnosticDeletion, postOutcomes, postRecommend } from '@/utils/request';
 import { OutcomesType_Data } from '@/constant/Api';
 import RenderCell from './RenderCell';
 import { ethers } from 'ethers';
@@ -51,7 +51,7 @@ export default function Consultation({ onDataReceived }: { onDataReceived: (leng
 
 	const [isModal, setIsModal] = useState(true);
 	const [allData, setAllData] = useState<OutcomesType_Data[]>([]);
-	const [predictingOutcomes, setPredictingOutcomes] = useState({ result: '', suggestion: [] as string[] });
+	const [predictingOutcomes, setPredictingOutcomes] = useState({ result: '', suggestion: [] as string[], nameList: [] as string[], name: '' });
 	const [isDel, setIsDel] = useState(false);
 	const [filterValue, setFilterValue] = useState('');
 	const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set([]));
@@ -124,12 +124,18 @@ export default function Consultation({ onDataReceived }: { onDataReceived: (leng
 
 	const handleOpen = async (result: string, name: string) => {
 		try {
+			const illnessesNameList = await getDiseaseInfo({ Disease: name });
+			const nameList = illnessesNameList.data.Output.Result.map((item) => item.Value);
 			const suggestion = await postRecommend({ disease: name });
 			if (suggestion?.data) {
 				const processedArray = `https://ipfs.io/ipfs/${suggestion.data}`;
 				const fetchPromises = await fetchList(processedArray);
-				const strArr = splitStringWithRegex(fetchPromises);
-				setPredictingOutcomes({ result, suggestion: strArr || [''] });
+				try {
+					const strArr = splitStringWithRegex(fetchPromises);
+					setPredictingOutcomes({ result, suggestion: strArr || [''], nameList, name });
+				} catch (error) {
+					console.log(error);
+				}
 			}
 		} catch (error) {
 			console.error(error);
@@ -201,18 +207,35 @@ export default function Consultation({ onDataReceived }: { onDataReceived: (leng
 
 	useEffect(() => {
 		if (!address) return router.push('/');
-	}, [address,router]);
+	}, [address, router]);
 
 	const viewModal = useCallback(() => {
-		const modalHeader = isModal ? `Diagnosis: ${predictingOutcomes.result}` : 'Uploading records';
+		const modalHeader = isModal ? `Diagnosis : ${predictingOutcomes.name}` : 'Uploading records';
 		const modalBody = isModal ? (
-			<ul className='list-disc px-[2rem]'>
-				{predictingOutcomes.suggestion.map((i) => (
-					<li className='my-[0.4rem]' key={i}>
-						{i}
-					</li>
-				))}
-			</ul>
+			<div>
+				<div className='mb-1'>
+					<span className=' font-[600]'>Your diagnosis is</span> : {predictingOutcomes.result}
+				</div>
+				<div>
+					<span className=' font-[600]'>Results of current disease diagnostic appearances :</span>
+				</div>
+				<ul className='list-disc px-[2rem]'>
+					{predictingOutcomes.nameList.map((item, i) => {
+						return (
+							<li className='my-[0.4rem]' key={i}>
+								{item}
+							</li>
+						);
+					})}
+				</ul>
+				<ul className='list-disc px-[2rem]'>
+					{predictingOutcomes.suggestion.map((i) => (
+						<li className='my-[0.4rem]' key={i}>
+							{i}
+						</li>
+					))}
+				</ul>
+			</div>
 		) : (
 			<>
 				<ul className='list-disc px-[2rem]'>
@@ -226,7 +249,7 @@ export default function Consultation({ onDataReceived }: { onDataReceived: (leng
 			</>
 		);
 		return (
-			<Modal size={'2xl'} isOpen={isOpen} onClose={onClose} scrollBehavior='inside'>
+			<Modal hideCloseButton size={'2xl'} isOpen={isOpen} onClose={onClose} scrollBehavior='inside'>
 				<ModalContent>
 					{(onClose) => (
 						<>

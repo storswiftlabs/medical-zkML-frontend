@@ -7,6 +7,7 @@ import { postForecastResult } from '@/utils/request';
 import { OutcomesType_Data } from '@/constant/Api';
 import { Correct, Mistake, VerticalDotsIcon } from '@/components/Icon/AcmeLogo';
 import formatData from '@/utils/formatData';
+import { useRouter } from 'next/navigation';
 
 const statusColorMap: Record<string, ChipProps['color']> = {
 	active: 'success',
@@ -31,11 +32,12 @@ const RenderCell = ({
 	columnKey: React.Key;
 	handleOpen: (result: string, name: string) => void;
 }) => {
+	const router = useRouter();
 	const { address } = useAccount();
 	const [isValidation, setIsValidation] = useState(false);
 	const [valiId, setValiId] = useState(0);
 	const [verifyWhether, setVerifyWhether] = useState(false);
-	const loadingFunction = async (isVer: boolean, id: number) => {
+	const loadingFunction = async (isVer: boolean, id: number, name: string) => {
 		setValiId(id);
 		if (isVer) {
 			// Verify
@@ -46,9 +48,9 @@ const RenderCell = ({
 			setVerifyWhether(result === true ? true : false);
 		} else {
 			// re-upload
+			router.push(`/diagonsis?name=${name}`);
 		}
 	};
-
 	const stateFunction = (state: string) => {
 		switch (state) {
 			case 'paused':
@@ -139,7 +141,7 @@ const RenderCell = ({
 					) : !isValidation ? (
 						<div>
 							<Button
-								onClick={() => loadingFunction(isVer, user.ID)}
+								onClick={() => loadingFunction(isVer, user.ID, user.Disease)}
 								size='sm'
 								spinner={
 									<svg className='animate-spin h-5 w-5 text-current' fill='none' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>

@@ -114,7 +114,7 @@ export default function NavigationBar() {
 							</>
 						)}
 					</NavbarContent>
-					<ConnectButton.Custom>
+					{/* <ConnectButton.Custom>
 						{({ account, chain, openAccountModal, openChainModal, openConnectModal, authenticationStatus, mounted }) => {
 							// Note: If your app doesn't use authentication, you
 							// can remove all 'authenticationStatus' checks
@@ -162,11 +162,13 @@ export default function NavigationBar() {
 								</div>
 							);
 						}}
-					</ConnectButton.Custom>
+					</ConnectButton.Custom> */}
+					<ConnectButton showBalance={false} chainStatus="none" accountStatus="address"/>
 				</>
 			) : (
 				<></>
 			)}
+			
 		</Navbar>
 	);
 }

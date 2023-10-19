@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         autoConnect: true,
         connectors,
         publicClient,
-        // webSocketPublicClient,
+        webSocketPublicClient,
     });
 
     const CustomAvatar: AvatarComponent = ({ address, ensImage, size }) => {

@@ -107,7 +107,8 @@ function EnterModal({
 					});
 				}
 			}
-
+			console.log(result,'result');
+			
 			try {
 				const ForecastData = await postPrediction(result);
 				console.log(ForecastData, 'ForecastData');
@@ -165,7 +166,6 @@ function EnterModal({
 	};
 
 	const submitEvent = () => {
-		// 提交
 		fileRef.current?.click();
 		if (isValid) {
 			paginate(1);
@@ -229,7 +229,7 @@ function EnterModal({
 						</Button>
 					</DropdownTrigger>
 					<DropdownMenu variant='flat' disallowEmptySelection selectionMode='single' selectedKeys={selectedKeys} onSelectionChange={setSelectedKeys}>
-						{operatorList.map((item) => (
+						{operatorList.map((item,index) => (
 							<DropdownItem key={item.name}>{item.name}</DropdownItem>
 						))}
 					</DropdownMenu>
@@ -243,7 +243,6 @@ function EnterModal({
 	}, [selectedValue, selectedKeys, operatorList]);
 
 	const AnimationComponent = [ModalElementA, ModalElementB];
-
 	return (
 		<>
 			<Modal
@@ -254,6 +253,7 @@ function EnterModal({
 					onClose();
 					reset(); // Empty Data react hooks form
 					setPage([0, 0]); // Returns the first component
+					setSelectedKeys(new Set(['Choose the engine you need']))
 				}}
 			>
 				<ModalContent>
@@ -265,7 +265,6 @@ function EnterModal({
 									{page === 2 ? (
 										<motion.div
 											className='w-full min-h-[16rem]'
-											key={3}
 											custom={direction}
 											variants={variants}
 											initial='enter'
@@ -284,7 +283,7 @@ function EnterModal({
 										AnimationComponent.map((Component, index) => (
 											<motion.div
 												className='w-full'
-												key={Component.name}
+												key={index}
 												custom={direction}
 												variants={variants}
 												initial='enter'
@@ -334,7 +333,6 @@ function EnterModal({
 									<Button
 										color='primary'
 										onClick={() => {
-											fileRef.current?.click();
 											isValid && paginate(1);
 										}}
 									>

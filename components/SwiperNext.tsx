@@ -42,14 +42,14 @@ export default function SwiperNext() {
 				}}
 				direction={'horizontal'}
 				noSwiping={true}
-				initialSlide={1}
+				initialSlide={3}
 				loop={true}
 				effect='cards' // Setting up card effects
 				cardsEffect={{
 					slideShadows: false, // Whether to show shadows between cards
 				}}
 				// navigation={true}
-				modules={[Autoplay, Pagination, Navigation]}
+				modules={[Autoplay, Pagination]}
 				className='mySwiper'
 			>
 				{allData.map((i, index) => {

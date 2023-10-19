@@ -87,6 +87,7 @@ export default function DiaTable() {
 	);
 
 	const onClose1 = () => {
+		console.log(1);
 		setIsOpen1(false);
 	};
 

@@ -107,8 +107,6 @@ function EnterModal({
 					});
 				}
 			}
-			console.log(result,'result');
-			
 			try {
 				const ForecastData = await postPrediction(result);
 				console.log(ForecastData, 'ForecastData');

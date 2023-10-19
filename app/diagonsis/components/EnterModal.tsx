@@ -83,10 +83,15 @@ function EnterModal({
 	const { address } = useAccount();
 	const [value, setValue1] = useState(0);
 	const selectedValue = useMemo(() => Array.from(selectedKeys).join(', ').replaceAll('_', ' '), [selectedKeys]);
+	const [[page, direction], setPage] = useState([0, 0]);
 
 	const onSubmit = useCallback(
 		async (data: any) => {
 			if (Array.from(selectedKeys)[0] === 'Choose the engine you need') {
+				return;
+			}
+
+			if (page < 1) {
 				return;
 			}
 
@@ -114,7 +119,7 @@ function EnterModal({
 				console.error('Error:', error);
 			}
 		},
-		[enterObject, selectedKeys, address]
+		[enterObject, selectedKeys, address,page]
 	);
 
 	const judgingFunction = (setArr: any) => {
@@ -143,8 +148,6 @@ function EnterModal({
 			};
 		},
 	};
-
-	const [[page, direction], setPage] = useState([0, 0]);
 
 	const paginate = (newDirection: number) => {
 		setPage([page + newDirection, newDirection]);
@@ -209,7 +212,8 @@ function EnterModal({
 			</div>
 		);
 	}, [errors, enterObject, handleSubmit, register, setValue, onSubmit]);
-
+	console.log(page,'page');
+	
 	const ModalElementB = useCallback(() => {
 		const modal = [...selectedKeys];
 		return (
@@ -227,7 +231,7 @@ function EnterModal({
 						</Button>
 					</DropdownTrigger>
 					<DropdownMenu variant='flat' disallowEmptySelection selectionMode='single' selectedKeys={selectedKeys} onSelectionChange={setSelectedKeys}>
-						{operatorList.map((item,index) => (
+						{operatorList.map((item, index) => (
 							<DropdownItem key={item.name}>{item.name}</DropdownItem>
 						))}
 					</DropdownMenu>
@@ -251,7 +255,7 @@ function EnterModal({
 					onClose();
 					reset(); // Empty Data react hooks form
 					setPage([0, 0]); // Returns the first component
-					setSelectedKeys(new Set(['Choose the engine you need']))
+					setSelectedKeys(new Set(['Choose the engine you need']));
 				}}
 			>
 				<ModalContent>
@@ -331,6 +335,7 @@ function EnterModal({
 									<Button
 										color='primary'
 										onClick={() => {
+											fileRef.current?.click();
 											isValid && paginate(1);
 										}}
 									>

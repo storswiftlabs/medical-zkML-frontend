@@ -53,3 +53,6 @@ body {
     background-color: #008aee;
 }
 
+.appearance-none{
+  outline-color:none !important;
+}

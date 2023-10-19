@@ -47,16 +47,6 @@ function DiseaseArticleContent({
 	return (
 		<div className='border-y-1' style={{ ...style, paddingTop: '0' }}>
 			<div className='my-[3.125rem]'>
-				{/* <User
-                    id='my-image'
-                    name='Jane Doe'
-                    avatarProps={{
-                        name: item.title.replace(/\s/g, ''),
-                        src: formatConversion(item.icon, item.title),
-                        className: 'w-8 h-8 text-tiny my-image',
-                    }}
-                /> */}
-				<Image id='my-image' className='my-image' width={30} radius='full' alt='NextUI hero Image' src={formatConversion(item.icon)} />
 				<Spacer y={2} />
 				<div className='flex items-center justify-between'>
 					<div>
@@ -69,6 +59,7 @@ function DiseaseArticleContent({
 				</div>
 				<Spacer y={4} />
 				<div className='flex items-center gap-4'>
+					<Image id='my-image' className='my-image' width={30} radius='full' alt='NextUI hero Image' src={formatConversion(item.icon)} />
 					<div>
 						<Chip size='sm'>{item.disease}</Chip>
 					</div>

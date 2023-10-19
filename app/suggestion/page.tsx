@@ -15,7 +15,7 @@ function Page() {
     }, []);
 
     useEffect(() => {
-        fetchData();
+        // fetchData();
     }, [fetchData]);
 
     return (

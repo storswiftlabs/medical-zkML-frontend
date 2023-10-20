@@ -41,7 +41,7 @@ export default function TabsHead() {
 					title={
 						<div className='flex items-center space-x-2'>
 							<DiagnosticIcon />
-							<span>Consultation record </span>
+							<span>Consultation Record </span>
 							<Chip size='sm' variant='faded'>
 								{diagnosticHistory}
 							</Chip>
@@ -70,7 +70,7 @@ export default function TabsHead() {
 					title={
 						<div className='flex items-center space-x-2'>
 							<GalleryIcon />
-							<span>Published work</span>
+							<span>Published Work</span>
 							<Chip size='sm' variant='faded'>
 								0
 							</Chip>

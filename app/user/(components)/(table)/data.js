@@ -2,7 +2,7 @@ import React from 'react';
 const columns = [
 	// { name: "ID", uid: "id",  },
 	{ name: 'Presumptive Diagnosis Operator', uid: 'name' },
-	{ name: 'Module', uid: 'Module' },
+	{ name: 'ML Model', uid: 'Module' },
 	// { name: "Description", uid: "description", },
 	{ name: 'Validation', uid: 'validation' },
 	{ name: 'Status', uid: 'status' },

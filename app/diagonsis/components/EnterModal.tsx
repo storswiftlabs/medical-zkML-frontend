@@ -16,7 +16,7 @@ const SelectDiv = (name: string, items: any[], register: any, setValue: any, ind
 
 	useEffect(() => {
 		setValue(name, findValueByKey(items, selectedValue));
-	}, [selectedValue, items, name, setValue]);
+	}, [selectedValue]);
 
 	function findValueByKey(items: any, inputKey: any) {
 		for (const item of items) {
@@ -78,12 +78,14 @@ function EnterModal({
 		handleSubmit,
 		formState: { errors, isValid },
 		setValue,
+		getValues,
 	} = useForm();
 	const [selectedKeys, setSelectedKeys] = useState<any>(new Set(['Choose the engine you need']));
 	const { address } = useAccount();
 	const [value, setValue1] = useState(0);
 	const selectedValue = useMemo(() => Array.from(selectedKeys).join(', ').replaceAll('_', ' '), [selectedKeys]);
 	const [[page, direction], setPage] = useState([0, 0]);
+
 
 	const onSubmit = useCallback(
 		async (data: any) => {
@@ -103,7 +105,6 @@ function EnterModal({
 			};
 
 			for (let key in data) {
-				
 				let matchedInput = enterObject.Inputs.find((item) => item.Name === key);
 				if (matchedInput) {
 					result.inputs.push({
@@ -212,8 +213,7 @@ function EnterModal({
 				</form>
 			</div>
 		);
-	}, [errors, enterObject, handleSubmit, register, setValue, onSubmit]);
-	console.log(page, 'page');
+	}, [enterObject]);
 
 	const ModalElementB = useCallback(() => {
 		const modal = [...selectedKeys];
@@ -337,7 +337,7 @@ function EnterModal({
 									<Button
 										color='primary'
 										onClick={() => {
-											fileRef.current?.click();
+											// fileRef.current?.click();
 											isValid && paginate(1);
 										}}
 									>

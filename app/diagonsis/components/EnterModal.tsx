@@ -151,11 +151,12 @@ function EnterModal({
 					id='inp'
 					className='w-[18rem]'
 					variant='bordered'
-					errorMessage={Object.keys(errors).includes(name) ? item.Warn : ''}
+					// errorMessage={Object.keys(errors).includes(name) ? item.Warn : ''}
 					isInvalid={Object.keys(errors).includes(name) ? 'invalid' : ''}
 					color={Object.keys(errors).includes(name) ? 'danger' : 'default'}
 					placeholder={'Please enter ' + select[0].Key}
-					{...register(name, { required: true, pattern: new RegExp(item.Regular) })}
+					// {...register(name, { required: true, pattern: new RegExp(item.Regular) })}
+					{...register(name, { required: true })}
 				/>
 			</div>
 		);

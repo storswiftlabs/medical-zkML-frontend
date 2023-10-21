@@ -71,9 +71,20 @@ const RenderCell = ({
 		return '';
 	};
 
+	const switchFun = (Output: string, EndTime: number, Message: string) => {
+		const timeInSeconds = Math.floor(Date.now() / 1000); // Get the timestamp of the current time in seconds
+
+		if (timeInSeconds < EndTime && Output == '-1') {
+			//当前时间小于到期时间 且 ot 为-1 肯定没出结果
+			return true;
+		} else {
+			return false;
+		}
+	};
+
 	switch (columnKey) {
-        case 'Module':
-            return  <>{user.Module}</>
+		case 'Module':
+			return <>{user.Module}</>;
 		case 'Output':
 			return <>{outputFunction(user.Output)}</>;
 		case 'id':
@@ -90,17 +101,21 @@ const RenderCell = ({
 			);
 		case 'status':
 			let isstatus;
-			const currentTimeInSeconds = Math.floor(Date.now() / 1000); // Get the timestamp of the current time in seconds
+			const currentTimeInSeconds = Math.floor(Date.now() / 1000);
 			if (currentTimeInSeconds > user.EndTime) {
 				if (Number(user.Output) === -1) {
-					// If the current time is greater than the expiration time, and the Output is -1, the request fails.
 					isstatus = 'paused';
 				} else {
-					// The results are in.
 					isstatus = 'active';
 				}
 			} else {
-				isstatus = 'vacation';
+				if (user.Output == '-1' && user.Message.length == 0) {
+					isstatus = 'vacation';
+				} else if (user.Output != '-1' && user.Message.length == 0) {
+					isstatus = 'active';
+				} else {
+					isstatus = 'paused';
+				}
 			}
 			return (
 				<Chip className='capitalize border-none gap-1 text-default-600' color={statusColorMap[isstatus]} size='sm' variant='dot'>
@@ -134,11 +149,10 @@ const RenderCell = ({
 				</div>
 			);
 		case 'validation':
-			const timeInSeconds = Math.floor(Date.now() / 1000); // Get the timestamp of the current time in seconds
 			const isVer = Number(user.Output) !== -1 && !isValidation;
 			return (
 				<>
-					{timeInSeconds < user.EndTime ? (
+					{switchFun(user.Output, user.EndTime, user.Message) ? (
 						<Countdown value={user.EndTime * 1000} onFinish={onFinish} />
 					) : !isValidation ? (
 						<div>

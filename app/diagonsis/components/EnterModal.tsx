@@ -1,6 +1,20 @@
 'use client';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Input } from '@nextui-org/react';
+import {
+	Modal,
+	ModalContent,
+	ModalHeader,
+	ModalBody,
+	ModalFooter,
+	Button,
+	Dropdown,
+	DropdownTrigger,
+	DropdownMenu,
+	DropdownItem,
+	Input,
+	Select,
+	SelectItem,
+} from '@nextui-org/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { Data, OperatorList } from '@/constant/Api';
@@ -8,53 +22,6 @@ import ModalElementT from './ModalElementT';
 import { postPrediction } from '@/utils/request';
 import Link from 'next/link';
 import { useAccount } from 'wagmi';
-
-const SelectDiv = (name: string, items: any[], register: any, setValue: any, index: number) => {
-	const [selectedKeys, setSelectedKeys] = useState<any>(new Set([items[0].Key]));
-
-	const selectedValue = useMemo(() => Array.from(selectedKeys).join(', ').replaceAll('_', ' '), [selectedKeys]);
-
-	useEffect(() => {
-		setValue(name, findValueByKey(items, selectedValue));
-	}, [selectedValue]);
-
-	function findValueByKey(items: any, inputKey: any) {
-		for (const item of items) {
-			if (item.Key === inputKey) {
-				return item.Value;
-			}
-		}
-		return null;
-	}
-
-	return (
-		<div className='flex items-center justify-between' key={index}>
-			<span className=' text-[#773247] mr-[0.4rem]'>{name}</span>
-			<Dropdown>
-				<DropdownTrigger>
-					<Button variant='bordered' className='capitalize w-[18rem] justify-between'>
-						<span className=' mr-[1rem]'>{selectedValue}</span>
-						<svg viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg' p-id='19590' width='20' height='20'>
-							<path
-								d='M787.2 380.8c-9.6-9.6-22.4-12.8-35.2-12.8l-480 3.2c-12.8 0-25.6 3.2-35.2 12.8-19.2 19.2-19.2 48 0 67.2l240 240c0 0 0 0 0 0 0 0 0 0 0 0 3.2 3.2 9.6 6.4 12.8 9.6 0 0 3.2 3.2 3.2 3.2 16 6.4 38.4 3.2 51.2-9.6l240-243.2C806.4 428.8 803.2 400 787.2 380.8z'
-								p-id='19591'
-							></path>
-						</svg>
-					</Button>
-				</DropdownTrigger>
-				<DropdownMenu variant='flat' disallowEmptySelection selectionMode='single' selectedKeys={selectedKeys} onSelectionChange={setSelectedKeys}>
-					{items?.map((item, index) => {
-						return (
-							<DropdownItem {...register(name, { value: selectedValue }, { required: true })} key={item.Key}>
-								{item.Key}
-							</DropdownItem>
-						);
-					})}
-				</DropdownMenu>
-			</Dropdown>
-		</div>
-	);
-};
 
 function EnterModal({
 	isOpen,
@@ -85,7 +52,6 @@ function EnterModal({
 	const [value, setValue1] = useState(0);
 	const selectedValue = useMemo(() => Array.from(selectedKeys).join(', ').replaceAll('_', ' '), [selectedKeys]);
 	const [[page, direction], setPage] = useState([0, 0]);
-
 
 	const onSubmit = useCallback(
 		async (data: any) => {
@@ -182,7 +148,7 @@ function EnterModal({
 				<Input
 					className='w-[18rem]'
 					variant='bordered'
-					validationState={Object.keys(errors).includes(name) ? 'invalid' : ''}
+					isInvalid={Object.keys(errors).includes(name) ? 'invalid' : ''}
 					color={Object.keys(errors).includes(name) ? 'danger' : 'default'}
 					placeholder={'Please enter ' + select[0].Key}
 					{...register(name, { required: true })}
@@ -190,6 +156,29 @@ function EnterModal({
 			</div>
 		);
 	};
+
+	const SelectDiv = (name: string, items: any[], register: any, setValue: any, index: number, errors: any) => {
+		return (
+			<div className='flex items-center justify-between' key={index}>
+				<span className=' text-[#773247] mr-[0.4rem]'>{name}</span>
+				<Select
+					ref={...register(name, { value: items[0].Value }, { required: true })}
+					disallowEmptySelection
+					defaultSelectedKeys={[String(items[0].Value)]}
+					{...register(name, { value: items[0].Value }, { required: true })}
+					className='w-[18rem] h-[2rem] flex text-center asb'
+					variant='bordered'
+				>
+					{items.map((animal) => (
+						<SelectItem className='h-[2rem] pt-0' key={animal.Value} value={animal.Key}>
+							{animal.Key}
+						</SelectItem>
+					))}
+				</Select>
+			</div>
+		);
+	};
+
 
 	const ModalElementA = useCallback(() => {
 		return (
@@ -202,7 +191,7 @@ function EnterModal({
 								return InputDiv({ register, errors, name: item.Name, select: item.Select, index });
 							} else {
 								// Representatives are drop-down boxes
-								return SelectDiv(item.Name, item.Select, register, setValue, index);
+								return SelectDiv(item.Name, item.Select, register, setValue, index, errors);
 							}
 						})}
 					</div>
@@ -213,7 +202,7 @@ function EnterModal({
 				</form>
 			</div>
 		);
-	}, [enterObject]);
+	}, [enterObject, onSubmit, register, setValue, errors, handleSubmit]);
 
 	const ModalElementB = useCallback(() => {
 		const modal = [...selectedKeys];
@@ -337,7 +326,7 @@ function EnterModal({
 									<Button
 										color='primary'
 										onClick={() => {
-											// fileRef.current?.click();
+											fileRef.current?.click();
 											isValid && paginate(1);
 										}}
 									>

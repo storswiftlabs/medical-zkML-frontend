@@ -141,21 +141,31 @@ function EnterModal({
 		}
 	};
 
-	const InputDiv = ({ errors, register, name, select, index }: any) => {
+	const InputDiv = ({ errors, register, name, select, index, item }: any) => {
+		const [v, setV] = useState('');
+
 		return (
 			<div className='flex items-center justify-between' key={index}>
 				<span className=' text-[#773247] mr-[0.4rem]'>{name}</span>
 				<Input
+					id='inp'
 					className='w-[18rem]'
 					variant='bordered'
+					errorMessage={Object.keys(errors).includes(name) ? item.Warn : ''}
 					isInvalid={Object.keys(errors).includes(name) ? 'invalid' : ''}
 					color={Object.keys(errors).includes(name) ? 'danger' : 'default'}
 					placeholder={'Please enter ' + select[0].Key}
-					{...register(name, { required: true })}
+					{...register(name, { required: true, pattern: new RegExp(item.Regular) })}
 				/>
 			</div>
 		);
 	};
+
+	useEffect(() => {
+		document.querySelectorAll('input[id="inp"]').forEach((input: any) => {
+			input.value = '';
+		});
+	}, [page]);
 
 	const SelectDiv = (name: string, items: any[], register: any, setValue: any, index: number, errors: any) => {
 		return (
@@ -179,7 +189,6 @@ function EnterModal({
 		);
 	};
 
-
 	const ModalElementA = useCallback(() => {
 		return (
 			<div className='justify-between min-h-[16rem] w-full '>
@@ -188,7 +197,7 @@ function EnterModal({
 						{enterObject?.Inputs?.map((item, index) => {
 							if (item.InputMethod === 'input') {
 								//The delegate is input
-								return InputDiv({ register, errors, name: item.Name, select: item.Select, index });
+								return InputDiv({ register, errors, name: item.Name, select: item.Select, index, item });
 							} else {
 								// Representatives are drop-down boxes
 								return SelectDiv(item.Name, item.Select, register, setValue, index, errors);

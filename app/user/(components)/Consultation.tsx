@@ -72,7 +72,7 @@ export default function Consultation({ onDataReceived }: { onDataReceived: (leng
 
 	const ValidationFunction = async (res: any): Promise<boolean> => {
 		const provider = new ethers.providers.JsonRpcProvider('https://calibration.filfox.info/rpc/v1');
-		const contract = new ethers.Contract(res.data.contract_address, res.data.abi, provider);
+		const contract = new ethers.Contract(res?.data?.contract_address, res.data.abi, provider);
 		const data = await contract.verify(res.data.proof, [res.data.result]);
 		return data;
 	};

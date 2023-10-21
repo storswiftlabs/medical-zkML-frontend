@@ -182,16 +182,24 @@ export default function Consultation({ onDataReceived }: { onDataReceived: (leng
 		},
 		[updatePagination]
 	);
+	console.log(selectedKeys, 'selectedKeys');
 
 	const onDeleteMultipleChoice = useCallback(async () => {
-		setSelectedKeys(new Set([]));
+		const keysList =
+			selectedKeys === 'all'
+				? pagination.data.map((item) => {
+						return item.ID;
+				  })
+				: Array.from(selectedKeys, (key: any) => parseInt(key));
+
 		try {
-			await postDiagnosticDeletion({ user: address, ids: Array.from(selectedKeys, (key: any) => parseInt(key)) });
+			await postDiagnosticDeletion({ user: address, ids: keysList });
 			fetchData();
+			location.reload();
 		} catch (err) {
 			console.log(err);
 		}
-	}, [selectedKeys, address, fetchData]);
+	}, [selectedKeys, address, fetchData, pagination.data]);
 
 	const onDelete = useCallback(
 		async (ids: number) => {
@@ -219,7 +227,7 @@ export default function Consultation({ onDataReceived }: { onDataReceived: (leng
 				<div>
 					<span className=' font-[600]'>Results of current disease diagnostic appearances :</span>
 				</div>
-				
+
 				<ul className='list-disc px-[2rem]'>
 					{predictingOutcomes.nameList.map((item, i) => {
 						return (

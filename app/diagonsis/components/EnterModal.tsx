@@ -142,8 +142,6 @@ function EnterModal({
 	};
 
 	const InputDiv = ({ errors, register, name, select, index, item }: any) => {
-		const [v, setV] = useState('');
-
 		return (
 			<div className='flex items-center justify-between' key={index}>
 				<span className=' text-[#773247] mr-[0.4rem]'>{name}</span>
@@ -163,9 +161,11 @@ function EnterModal({
 	};
 
 	useEffect(() => {
-		document.querySelectorAll('input[id="inp"]').forEach((input: any) => {
-			input.value = '';
-		});
+		if (page === 0) {
+			document.querySelectorAll('input[id="inp"]').forEach((input: any) => {
+				input.value = '';
+			});
+		}
 	}, [page]);
 
 	const SelectDiv = (name: string, items: any[], register: any, setValue: any, index: number, errors: any) => {

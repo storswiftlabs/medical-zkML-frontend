@@ -24,17 +24,21 @@ function ArticleList() {
 	const getInformation = async (address: any) => {
 		const res = await postOutcomes({ user: address });
 		const uniqueDiseases = [...new Set(res?.data?.map((item) => item.Disease))];
-		const resp = await postArticle({ diseases: uniqueDiseases });
-		if (resp.ok) {
-			setArticleList(resp.data);
-		} else {
-			setArticleList([]);
+		try {
+			const resp = await postArticle({ diseases: uniqueDiseases });
+			if (resp.ok) {
+				setArticleList(resp.data);
+			} else {
+				setArticleList([]);
+			}
+		} catch (error) {
+			console.log(error);
 		}
 	};
 
 	const diseaseRelated = async (diseases: string) => {
 		const resp = await postArticle({ diseases: [diseases] });
-		if (resp.ok) {
+		if (resp?.ok) {
 			setArticleList(resp.data);
 		} else {
 			setArticleList([]);
@@ -42,8 +46,12 @@ function ArticleList() {
 	};
 
 	const articleCollectionInterface = async (user: any) => {
-		const resp = await postArticleCollectionCheck({ user });
-		setCollectionOrNot(resp.data);
+		try {
+			const resp = await postArticleCollectionCheck({ user });
+			setCollectionOrNot(resp?.data);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	const DetermineIfCollection = (str: string): boolean => {

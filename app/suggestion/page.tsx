@@ -3,8 +3,18 @@ import React, { useCallback, useEffect } from 'react';
 import '@/components/index.css';
 import ArticleList from './components/ArticleList';
 import { postRecommend } from '@/utils/request';
+import { useAccount } from 'wagmi';
+import { watchAccount } from '@wagmi/core';
 
 function Page() {
+
+    const { address } = useAccount();
+	const unwatch = watchAccount((account) => {
+		if (address !== account.address) {
+			location.reload();
+		}
+	});
+
     const fetchData = useCallback(async () => {
         try {
             const recommend = await postRecommend({ disease: 'Primary_Tumor' });

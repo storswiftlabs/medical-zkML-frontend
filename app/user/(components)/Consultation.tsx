@@ -48,7 +48,6 @@ export default function Consultation({ onDataReceived }: { onDataReceived: (leng
 		pageSize: 10,
 		total: 0,
 	});
-
 	const [isModal, setIsModal] = useState(true);
 	const [allData, setAllData] = useState<OutcomesType_Data[]>([]);
 	const [predictingOutcomes, setPredictingOutcomes] = useState({ result: '', suggestion: [] as string[], nameList: [] as string[], name: '' });
@@ -182,7 +181,6 @@ export default function Consultation({ onDataReceived }: { onDataReceived: (leng
 		},
 		[updatePagination]
 	);
-	console.log(selectedKeys, 'selectedKeys');
 
 	const onDeleteMultipleChoice = useCallback(async () => {
 		const keysList =
@@ -218,7 +216,7 @@ export default function Consultation({ onDataReceived }: { onDataReceived: (leng
 	}, [address, router]);
 
 	const viewModal = useCallback(() => {
-		const modalHeader = isModal ? `Diagnosis : ${predictingOutcomes.name}` : 'Uploading records';
+		const modalHeader = isModal ? `Diagnosis : ${predictingOutcomes.name}` : 'Records uploaded';
 		const modalBody = isModal ? (
 			<div>
 				<div className='mb-1'>

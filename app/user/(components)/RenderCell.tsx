@@ -32,6 +32,7 @@ const RenderCell = ({
 	columnKey: React.Key;
 	handleOpen: (result: string, name: string) => void;
 }) => {
+	const [verifySend, setVerifySend] = useState(true);
 	const router = useRouter();
 	const { address } = useAccount();
 	const [isValidation, setIsValidation] = useState(false);
@@ -40,12 +41,21 @@ const RenderCell = ({
 	const loadingFunction = async (isVer: boolean, id: number, name: string) => {
 		setValiId(id);
 		if (isVer) {
-			// Verify
-			const res = await postForecastResult({ user: address, id });
-			const result = await ValidationFunction(res);
-			console.log(result, 'result');
-			setIsValidation(true);
-			setVerifyWhether(result === true ? true : false);
+			if (verifySend) {
+				setVerifySend(false);
+				try {
+					// Verify
+					const res = await postForecastResult({ user: address, id });
+					const result = await ValidationFunction(res);
+					console.log(result, 'result');
+					setIsValidation(true);
+					setVerifyWhether(result === true ? true : false);
+				} catch (error) {
+					console.log(error);
+				} finally {
+					setVerifySend(true);
+				}
+			}
 		} else {
 			// re-upload
 			router.push(`/diagonsis?name=${name}`);
@@ -75,7 +85,6 @@ const RenderCell = ({
 		const timeInSeconds = Math.floor(Date.now() / 1000); // Get the timestamp of the current time in seconds
 
 		if (timeInSeconds < EndTime && Output == '-1') {
-			//当前时间小于到期时间 且 ot 为-1 肯定没出结果
 			return true;
 		} else {
 			return false;
@@ -133,13 +142,13 @@ const RenderCell = ({
 						</DropdownTrigger>
 						<DropdownMenu disabledKeys={Number(user.Output) !== -1 ? [] : ['view']}>
 							<DropdownItem key='view' onPress={() => handleOpen(user.Output, user.Disease)}>
-								View
+								Views
 							</DropdownItem>
 							<DropdownItem
 								key='detail'
 								onPress={() => handleOpenDetail(user)} //TODO:Predicted results returned
 							>
-								Detail
+								Details
 							</DropdownItem>
 							<DropdownItem onClick={() => onDelete(user.ID)} key='delete' color='danger'>
 								Delete

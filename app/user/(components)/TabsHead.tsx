@@ -18,7 +18,7 @@ export default function TabsHead() {
 
 	const articleCollectionInterface = async (user: any) => {
 		const resp = await postArticleCollectionCheck({ user });
-		setWrit(resp.data.length);
+		setWrit(resp?.data?.length);
 	};
 	useEffect(() => {
 		articleCollectionInterface(address);
@@ -41,7 +41,7 @@ export default function TabsHead() {
 					title={
 						<div className='flex items-center space-x-2'>
 							<DiagnosticIcon />
-							<span>Consultation Record </span>
+							<span>Consultation Records</span>
 							<Chip size='sm' variant='faded'>
 								{diagnosticHistory}
 							</Chip>
@@ -56,7 +56,7 @@ export default function TabsHead() {
 					title={
 						<div className='flex items-center space-x-2'>
 							<WritingsIcon />
-							<span>Collect</span>
+							<span>Collections</span>
 							<Chip size='sm' variant='faded'>
 								{writ}
 							</Chip>
@@ -70,7 +70,7 @@ export default function TabsHead() {
 					title={
 						<div className='flex items-center space-x-2'>
 							<GalleryIcon />
-							<span>Published Work</span>
+							<span>Published Works</span>
 							<Chip size='sm' variant='faded'>
 								0
 							</Chip>

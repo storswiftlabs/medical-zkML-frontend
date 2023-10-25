@@ -117,7 +117,7 @@ export default function DiaTable() {
 					return (
 						<div className='relative flex justify-end items-center gap-2'>
 							<Button onClick={() => handleOpen1(item.Name)} color='primary' variant='faded'>
-								Enter the diagnosis
+								Enter diagnosis
 							</Button>
 						</div>
 					);

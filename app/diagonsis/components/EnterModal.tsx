@@ -124,9 +124,9 @@ function EnterModal({
 	const headerText = (page: number) => {
 		switch (page) {
 			case 0:
-				return 'Enter or select the symptoms of physical discomfort';
+				return 'Enter or select the symptoms';
 			case 1:
-				return 'Choosing a diagnostic engine';
+				return 'Choose a diagnostic engine';
 			case 2:
 				return 'Please be patient';
 			default:
@@ -248,6 +248,7 @@ function EnterModal({
 	return (
 		<>
 			<Modal
+				className='z-50'
 				hideCloseButton
 				scrollBehavior='inside'
 				size={'5xl'}

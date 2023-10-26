@@ -108,7 +108,31 @@ export default function DiaTable() {
 				case 'description':
 					return (
 						<div className='py-[1rem]'>
-							<Tooltip placement='top' closeDelay={0}  className='bg-[#dee1e6] w-[40rem]' content={item.Description}>
+							<Tooltip
+								placement='top'
+								delay={0}
+								closeDelay={0}
+								motionProps={{
+									variants: {
+										exit: {
+											opacity: 0,
+											transition: {
+												duration: 0.1,
+												ease: 'easeIn',
+											},
+										},
+										enter: {
+											opacity: 1,
+											transition: {
+												duration: 0.15,
+												ease: 'easeOut',
+											},
+										},
+									},
+								}}
+								className='bg-[#dee1e6] w-[40rem]'
+								content={item.Description}
+							>
 								<span className='containerText1 w-[30rem] '>{item.Description}</span>
 							</Tooltip>
 						</div>

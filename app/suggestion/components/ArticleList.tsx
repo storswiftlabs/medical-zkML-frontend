@@ -5,7 +5,6 @@ import { Pagination, Tab, Tabs } from '@nextui-org/react';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useAccount } from 'wagmi';
 import DiseaseArticleContent from './DiseaseArticleContent';
-import fetchJsonp from 'fetch-jsonp';
 
 function ArticleList() {
 	const { address } = useAccount();

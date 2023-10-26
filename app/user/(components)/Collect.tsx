@@ -6,7 +6,7 @@ import { Pagination } from '@nextui-org/react';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useAccount } from 'wagmi';
 
-function Collect() {
+function Collect({ getFun }: { getFun: (user: any) => void }) {
 	const { address } = useAccount();
 	const [collectionOrNot, setCollectionOrNot] = useState([] as ArticleType[]);
 	const [pagination, setPagination] = useState({
@@ -65,6 +65,7 @@ function Collect() {
 	}, [address]);
 
 	const DetermineIfCollection = (str: string): boolean => {
+		getFun(address)
 		for (let i = 0; i < collectionOrNot.length; i++) {
 			if (collectionOrNot[i].url === str) {
 				return true;

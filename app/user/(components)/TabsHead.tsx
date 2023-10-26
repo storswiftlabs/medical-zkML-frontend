@@ -63,7 +63,7 @@ export default function TabsHead() {
 						</div>
 					}
 				>
-					<Collect />
+					<Collect getFun={articleCollectionInterface} />
 				</Tab>
 				<Tab
 					key='photos'

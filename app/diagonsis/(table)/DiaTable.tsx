@@ -109,6 +109,8 @@ export default function DiaTable() {
 					return (
 						<div className='py-[1rem]'>
 							<Tooltip
+								isDismissable={true}
+								size='sm'
 								placement='top'
 								delay={0}
 								closeDelay={0}

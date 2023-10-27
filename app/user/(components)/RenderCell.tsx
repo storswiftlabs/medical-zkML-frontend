@@ -188,7 +188,7 @@ const RenderCell = ({
 					)}
 				</>
 			);
-		case 'EndTime':
+		case 'StartTime':
 			return <>{formatData.formatDate(user.EndTime, 'yyyy-MM-dd HH:mm')}</>;
 		default:
 			return 1;

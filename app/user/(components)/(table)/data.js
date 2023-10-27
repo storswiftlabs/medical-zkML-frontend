@@ -6,7 +6,7 @@ const columns = [
 	// { name: "Description", uid: "description", },
 	{ name: 'Verification', uid: 'validation' },
 	{ name: 'Status', uid: 'status' },
-	{ name: 'Starting Time', uid: 'StartTime' },
+	{ name: 'Time', uid: 'StartTime' },
 	{ name: 'Projected Results', uid: 'Output' },
 	{ name: 'Actions', uid: 'actions' },
 ];

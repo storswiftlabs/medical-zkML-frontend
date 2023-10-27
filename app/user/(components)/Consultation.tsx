@@ -145,10 +145,7 @@ export default function Consultation({ onDataReceived }: { onDataReceived: (leng
 	};
 
 	const handleOpenDetail = (user: OutcomesType_Data) => {
-		const regex = /(\w+)\s*:\s*(\d+(\.\d+)?)/g;
-		const matches = user.Inputs.matchAll(regex);
-		const arr = Array.from(matches, (match) => ({ name: match[1], value: Number(match[2]) }));
-		setUpdata({ ...user, Inputs: arr });
+		setUpdata({ ...user, Inputs: JSON.parse(user.Inputs) });
 		setIsModal(false);
 		onOpen();
 	};
@@ -251,7 +248,7 @@ export default function Consultation({ onDataReceived }: { onDataReceived: (leng
 				<ul className='list-disc px-[2rem]'>
 					{upData.Inputs.map((i: any) => (
 						<li className='my-[0.4rem]' key={i}>
-							{i.name} : {i.value}
+							{i.key} : {i.value}
 						</li>
 					))}
 				</ul>

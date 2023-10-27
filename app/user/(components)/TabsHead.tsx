@@ -7,18 +7,25 @@ import Collect from './Collect';
 import { DiagnosticIcon, GalleryIcon, WritingsIcon } from '@/components/Icon/AcmeLogo';
 import { postArticleCollectionCheck } from '@/utils/request';
 import { useAccount } from 'wagmi';
+import { ArticleType } from '@/constant/Api';
 
 export default function TabsHead() {
 	const { address } = useAccount();
 	const [diagnosticHistory, setDiagnosticHistory] = useState(0);
+	const [collectionOrNot, setCollectionOrNot] = useState([] as ArticleType[]);
 	const [writ, setWrit] = useState(0);
 	const handleDataReceived = (length: any) => {
 		setDiagnosticHistory(length);
 	};
 
 	const articleCollectionInterface = async (user: any) => {
-		const resp = await postArticleCollectionCheck({ user });
-		setWrit(resp?.data?.length);
+		try {
+			const resp = await postArticleCollectionCheck({ user });
+			setWrit(resp?.count);
+			setCollectionOrNot(resp.data);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 	useEffect(() => {
 		articleCollectionInterface(address);
@@ -63,7 +70,7 @@ export default function TabsHead() {
 						</div>
 					}
 				>
-					<Collect getFun={articleCollectionInterface} />
+					<Collect collectionOrNot={collectionOrNot} articleCollectionInterface={articleCollectionInterface} />
 				</Tab>
 				<Tab
 					key='photos'

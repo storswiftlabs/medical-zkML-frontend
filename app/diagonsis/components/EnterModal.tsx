@@ -76,13 +76,13 @@ function EnterModal({
 					result.inputs.push({
 						name: matchedInput.Name,
 						index: matchedInput.Index,
-						select: String(data[key]),
+						'select-key': matchedInput.InputMethod === 'input' ? String(data[key]) : matchedInput.Select.find((i) => Number(i.Value) == Number(data[key]))?.Key, //
+						'select-value': String(data[key]),
 					});
 				}
 			}
 			try {
 				const ForecastData = await postPrediction(result);
-				console.log(ForecastData, 'ForecastData');
 			} catch (error) {
 				console.error('Error:', error);
 			}

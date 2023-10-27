@@ -263,7 +263,7 @@
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	-webkit-line-clamp: 3; /* 显示的行数 */
+	-webkit-line-clamp: 3;
 }
 
 .containerText1 {
@@ -271,7 +271,7 @@
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	-webkit-line-clamp: 2; /* 显示的行数 */
+	-webkit-line-clamp: 2;
 }
 
 .swiper {

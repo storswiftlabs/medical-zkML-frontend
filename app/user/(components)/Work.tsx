@@ -2,7 +2,7 @@ import React from 'react'
 
 function Work() {
   return (
-    <div>No data?</div>
+    <div>No data</div>
   )
 }
 

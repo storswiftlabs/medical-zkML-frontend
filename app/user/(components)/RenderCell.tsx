@@ -189,7 +189,7 @@ const RenderCell = ({
 				</>
 			);
 		case 'StartTime':
-			return <>{formatData.formatDate(user.EndTime, 'yyyy-MM-dd HH:mm')}</>;
+			return <>{formatData.formatDate(user.StartTime, 'yyyy-MM-dd HH:mm')}</>;
 		default:
 			return 1;
 	}

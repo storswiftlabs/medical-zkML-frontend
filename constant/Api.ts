@@ -69,6 +69,7 @@ export interface OutcomesType_Data {
 	Message: string;
 	Output: string;
 	Module:string
+	StartTime:string
 }
 
 export interface ArticleType {

@@ -252,7 +252,7 @@ export default function Consultation({ onDataReceived }: { onDataReceived: (leng
 						</li>
 					))}
 				</ul>
-				<div>The current record was created in : {formatData.formatDate(upData.EndTime, 'yyyy-MM-dd HH:mm:ss')}</div>
+				<div>The current record was created at {formatData.formatDate(upData.EndTime, 'yyyy-MM-dd HH:mm:ss')}</div>
 			</>
 		);
 		return (

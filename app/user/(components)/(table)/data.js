@@ -6,9 +6,9 @@ const columns = [
 	// { name: "Description", uid: "description", },
 	{ name: 'Verification', uid: 'validation' },
 	{ name: 'Status', uid: 'status' },
-	{ name: 'Time', uid: 'StartTime' },
-	{ name: 'Projected Results', uid: 'Output' },
-	{ name: 'Actions', uid: 'actions' },
+	{ name: 'Time', uid: 'StartTime' }, 
+	{ name: 'Predicted Results', uid: 'Output' }, 
+	{ name: 'Actions', uid: 'actions' }, 
 ];
 
 const statusOptions = [

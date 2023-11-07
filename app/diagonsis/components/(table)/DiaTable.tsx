@@ -1,15 +1,15 @@
 'use client';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Input, Button, User, Pagination, useDisclosure, Tooltip } from '@nextui-org/react';
-import { columns } from '@/app/diagonsis/(table)/data';
-import { SearchIcon } from '@/components/Icon/AcmeLogo';
 import { useSearchParams } from 'next/navigation';
-import EnterModal from '../components/EnterModal';
+import EnterModal from '../EnterModal';
 import '@/components/index.css';
 import { Data, Datum, OperatorList } from '@/constant/Api';
 import { getDiseaseInfo, getDiseases, getOperatorList } from '@/utils/request';
 import { useAccount } from 'wagmi';
 import { useRouter } from 'next/navigation';
+import { SearchIcon } from '@/components/Icon/AcmeLogo';
+import { columns } from '@/app/user/(components)/(table)/data';
 
 export default function DiaTable() {
 	const { address } = useAccount();

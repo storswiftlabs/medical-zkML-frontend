@@ -52,5 +52,8 @@ body {
 }
 
 .asb .pt-4 {
-  padding-top: 0 !important;
+	padding-top: 0 !important;
+}
+.ant-steps-item-description {
+	height: 3rem;
 }

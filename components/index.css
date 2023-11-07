@@ -338,3 +338,85 @@
 .data-\[focus-visible\=true\]\:outline-focus[data-focus-visible='true'] {
 	outline-color: none !important;
 }
+
+.cat {
+	padding: 0;
+	margin: 0;
+	border: none;
+	background: none;
+}
+
+.cat {
+	--primary-color: #111;
+	--hovered-color: #c84747;
+	position: relative;
+	display: flex;
+	font-weight: 600;
+	font-size: 20px;
+	gap: 0.5rem;
+	align-items: center;
+}
+
+.cat p {
+	margin: 0;
+	position: relative;
+	font-size: 20px;
+	color: #58c1af;
+}
+
+.home-diagnosis-text {
+	font-family: monospace;
+}
+.home-diagnosis-h2 {
+	font-family: math;
+}
+.your-element {
+	font-size: 12px;
+	display: -webkit-box;
+	-webkit-line-clamp: 6; /* 显示的行数 */
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+  }
+.cat::after {
+	position: absolute;
+	content: '';
+	width: 0;
+	left: 0;
+	bottom: -7px;
+	background: #58c1af;
+	height: 2px;
+	transition: 0.3s ease-out;
+}
+
+.cat p::before {
+	position: absolute;
+	/*   box-sizing: border-box; */
+	/* content: 'Go immediately'; */
+	width: 0%;
+	inset: 0;
+	color: #58c1af;
+	overflow: hidden;
+	transition: 0.3s ease-out;
+}
+
+.cat:hover::after {
+	width: 100%;
+}
+
+.cat:hover p::before {
+	width: 100%;
+}
+
+.cat:hover svg {
+	transform: translateX(4px);
+	color: #58c1af;
+}
+
+.cat svg {
+	color: #58c1af;
+	transition: 0.2s;
+	position: relative;
+	width: 15px;
+	transition-delay: 0.2s;
+}

@@ -1,4 +1,77 @@
 'use client';
+
+export const WarnSvg = () => (
+	<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 204' role='presentation' className='ui-icon ui-message__illustration' id='agreement-illustration'>
+		<circle cx='120' cy='102' r='102' fill='var(--agreement-background, #E6F9F2)'></circle>
+		<path
+			fill='var(--agreement-form, #fff)'
+			fill-rule='evenodd'
+			stroke='var(--agreement-form-outline, #333D48'
+			stroke-linejoin='round'
+			stroke-width='2'
+			d='m166 64-26-26H79.998a6 6 0 0 0-6 6v114a8 8 0 0 0 8 8H160a6 6 0 0 0 6-6V64z'
+			clip-rule='evenodd'
+		></path>
+		<path
+			fill='var(--agreement-form-shadow, #D6DDE3)'
+			fill-rule='evenodd'
+			d='M96.624 39c.248 1.63.376 3.3.376 5 0 14.368-9.183 26.592-22 31.122V39h21.624z'
+			clip-rule='evenodd'
+		></path>
+		<circle cx='62' cy='42' r='32' fill='var(--agreement-padlock-background, #fff)' stroke='var(--agreement-padlock-background-outline, #333D48' stroke-width='2'></circle>
+		<path
+			fill='var(--agreement-padlock-hasp, #E7EBEE)'
+			fill-rule='evenodd'
+			d='M62 24a9 9 0 0 0-9 9v8a9 9 0 1 0 18 0v-8a9 9 0 0 0-9-9zm0 26a5 5 0 0 1-5-5V34a5 5 0 0 1 10 0v11a5 5 0 0 1-5 5z'
+			clip-rule='evenodd'
+		></path>
+		<path
+			fill='var(--agreement-padlock-hasp-outline, #333D48)'
+			d='M54 33a8 8 0 0 1 8-8v-2c-5.523 0-10 4.477-10 10h2zm0 8v-8h-2v8h2zm8 8a8 8 0 0 1-8-8h-2c0 5.523 4.477 10 10 10v-2zm8-8a8 8 0 0 1-8 8v2c5.523 0 10-4.477 10-10h-2zm0-8v8h2v-8h-2zm-8-8a8 8 0 0 1 8 8h2c0-5.523-4.477-10-10-10v2zm0 24a4 4 0 0 1-4-4h-2a6 6 0 0 0 6 6v-2zm-4-4V34h-2v11h2zm0-11a4 4 0 0 1 4-4v-2a6 6 0 0 0-6 6h2zm4-4a4 4 0 0 1 4 4h2a6 6 0 0 0-6-6v2zm4 4v11h2V34h-2zm0 11a4 4 0 0 1-4 4v2a6 6 0 0 0 6-6h-2z'
+		></path>
+		<rect width='24' height='24' x='50' y='36' fill='var(--agreement-padlock, #FFC037)' stroke='var(--agreement-padlock-outline, #EBA100)' stroke-width='2' rx='12'></rect>
+		<circle cx='62' cy='46' r='3' fill='var(--agreement-padlock-lock, #333D48)'></circle>
+		<rect width='2' height='8' x='61' y='46' fill='var(--agreement-padlock-lock, #333D48)' rx='1'></rect>
+		<circle cx='178' cy='158' r='32' fill='var(--agreement-tick-background, #fff)' stroke='var(--agreement-tick-background-outline, #333D48)' stroke-width='2'></circle>
+		<path
+			fill='var(--agreement-tick, #2DC692)'
+			fill-rule='evenodd'
+			stroke='var(--agreement-tick-outline, #1AA175)'
+			stroke-linecap='round'
+			stroke-linejoin='round'
+			stroke-width='2'
+			d='m164 161 4-4 6 6 16-16 4 4-20 20-10-10z'
+			clip-rule='evenodd'
+		></path>
+		<path fill='var(--agreement-form-shadow, #D6DDE3)' fill-rule='evenodd' d='M140 41v18a8 8 0 0 0 8 8h17v-2l-25-24z' clip-rule='evenodd'></path>
+		<path
+			fill='var(--agreement-form-corner, #C1CBD5)'
+			fill-rule='evenodd'
+			stroke='var(--agreement-form-outline, #333D48)'
+			stroke-linejoin='round'
+			stroke-width='2'
+			d='M140 38v18a8 8 0 0 0 8 8h18l-26-26z'
+			clip-rule='evenodd'
+		></path>
+		<path stroke='var(--agreement-form-text, #C1CBD5)' stroke-width='2' d='M94 89h40m-40-8h52M94 97h48m-48 8h40m-40 8h52m-52 8h44m-44 14h24'></path>
+	</svg>
+);
+
+export const WarnIcon = () => (
+	<svg className='icon' viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg' p-id='4041' width='20' height='20'>
+		<path
+			d='M513.9 106.5C290 106.5 108.4 288 108.4 512c0 223.9 181.5 405.5 405.5 405.5 223.9 0 405.5-181.5 405.5-405.5-0.1-224-181.6-405.5-405.5-405.5z m0 772.3C311.3 878.8 147 714.5 147 511.9 147 309.3 311.2 145 513.9 145c202.6 0 366.8 164.2 366.8 366.9 0 202.6-164.2 366.9-366.8 366.9z m0 0'
+			fill='#f31260'
+			p-id='4042'
+		></path>
+		<path
+			d='M455.9 743.6c0 32 25.9 57.9 57.9 57.9s57.9-25.9 57.9-57.9c0-20.7-11-39.8-29-50.2-17.9-10.3-40-10.3-57.9 0-17.8 10.4-28.9 29.5-28.9 50.2z m0 0M513.9 222.3c-20.5 0-40.1 8.1-54.6 22.6-14.5 14.5-22.6 34.1-22.6 54.6s57.9 326.9 57.9 328.2c0 5.1 2 10 5.7 13.7 3.6 3.6 8.5 5.7 13.7 5.7 10.4-0.6 18.7-8.9 19.3-19.3l57.9-328.2c0-20.5-8.1-40.1-22.6-54.6-14.6-14.6-34.3-22.7-54.7-22.7z m0 0'
+			fill='#f31260'
+			p-id='4043'
+		></path>
+	</svg>
+);
+
 export const AcmeLogo = () => (
 	<svg fill='none' height='36' viewBox='0 0 32 32' width='36'>
 		<path
@@ -312,4 +385,3 @@ export const DotIcon = () => (
 		<path d='M512 624a112 112 0 1 0 0-224 112 112 0 0 0 0 224z' p-id='5065'></path>
 	</svg>
 );
-

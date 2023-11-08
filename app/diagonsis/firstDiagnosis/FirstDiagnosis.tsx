@@ -67,16 +67,17 @@ function FirstDiagnosis() {
 	};
 
 	const AnimationComponent = [IntroductionComponentA, IntroductionComponentB];
-
+	console.log(page);
+	
 	return (
 		<div className='flex justify-center'>
 			<StepsComponent current={stepsNumber} />
-			<div className='w-[50rem] h-[35rem] bg-[#f1f3f4] flex flex-col rounded shadow'>
+			<div className='w-[50rem] min-h-[35rem] bg-[#f1f3f4] flex flex-col rounded shadow'>
 				<div className='flex-1 p-[2rem] pb-0'>
 					<AnimatePresence initial={false} custom={direction}>
 						{AnimationComponent.map((Component, index) => (
 							<motion.div
-								className='w-full'
+								className='w-full h-full'
 								key={index}
 								custom={direction}
 								variants={variants}
@@ -89,31 +90,10 @@ function FirstDiagnosis() {
 								}}
 								dragElastic={1}
 							>
-								<Component />
+								<Component paginate={paginate} />
 							</motion.div>
 						))}
 					</AnimatePresence>
-				</div>
-				<div>
-					<Divider />
-					<div className='flex items-center justify-between px-4 pb-4'>
-						{page == 0 ? (
-							<div></div>
-						) : (
-							<Button radius='sm' color='primary' onClick={() => paginate(-1)}>
-								Back
-							</Button>
-						)}
-						<Button
-							radius='sm'
-							color='primary'
-							onClick={() => {
-								paginate(1);
-							}}
-						>
-							Next
-						</Button>
-					</div>
 				</div>
 			</div>
 		</div>

@@ -10,7 +10,8 @@ function IntroductionComponentB({ paginate }: { paginate: (newDirection: number)
 		if (selected.length < 2) {
 			setIsInvalid(true);
 		} else {
-			// paginate(1);
+			setIsInvalid(false);
+			paginate(1);
 		}
 	};
 
@@ -23,7 +24,7 @@ function IntroductionComponentB({ paginate }: { paginate: (newDirection: number)
 
 	return (
 		<div className='flex flex-col h-full'>
-			<div className='flex flex-1'>
+			<div className='flex flex-1 p-[2rem]'>
 				<div className='w-[65%]'>
 					<h3 className='text-[1.6rem] mb-[0.4rem]'>Check your symptoms</h3>
 					<p className='leading-relaxed'>Take a short (3 min) symptom assessment. The information you give is safe and won’t be shared. Your results will include:</p>

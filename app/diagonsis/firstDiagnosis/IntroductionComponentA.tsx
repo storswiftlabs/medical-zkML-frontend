@@ -9,7 +9,7 @@ const AboutText = ['verifiable Machine Learning models using STARKs.'];
 function IntroductionComponentA({ paginate }: { paginate: (newDirection: number) => void }) {
 	return (
 		<div className='flex flex-col h-full'>
-			<div className='flex flex-1'>
+			<div className='flex flex-1 p-[2rem]'>
 				<div className='w-[60%]'>
 					<h3 className='text-[1.6rem] font-semibold mb-[0.4rem]'>Check your symptoms</h3>
 					<p className='leading-relaxed'>Take a short (3 min) symptom assessment. The information you give is safe and won’t be shared. Your results will include:</p>

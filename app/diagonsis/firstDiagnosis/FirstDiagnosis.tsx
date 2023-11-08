@@ -1,10 +1,11 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Divider, Steps } from 'antd';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@nextui-org/react';
 import IntroductionComponentA from './IntroductionComponentA';
 import IntroductionComponentB from './IntroductionComponentB';
+import Patient from './Patient';
 
 const StepsComponent = ({ current }: { current: number }) => {
 	return (
@@ -66,14 +67,22 @@ function FirstDiagnosis() {
 		setPage([page + newDirection, newDirection]);
 	};
 
-	const AnimationComponent = [IntroductionComponentA, IntroductionComponentB];
+	const AnimationComponent = [IntroductionComponentA, IntroductionComponentB, Patient];
 	console.log(page);
-	
+
+	useEffect(() => {
+		if (0 <= page && page <= 1) {
+			setStepsNumber(0);
+		} else if (2 <= page && page <= 4) {
+			setStepsNumber(1);
+		}
+	}, [page]);
+
 	return (
 		<div className='flex justify-center'>
 			<StepsComponent current={stepsNumber} />
 			<div className='w-[50rem] min-h-[35rem] bg-[#f1f3f4] flex flex-col rounded shadow'>
-				<div className='flex-1 p-[2rem] pb-0'>
+				<div className='flex-1'>
 					<AnimatePresence initial={false} custom={direction}>
 						{AnimationComponent.map((Component, index) => (
 							<motion.div

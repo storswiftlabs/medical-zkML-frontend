@@ -1,4 +1,4 @@
-.card {
+.cardA {
 	box-sizing: border-box;
 	width: 220px;
 	height: 260px;
@@ -19,11 +19,15 @@
 	flex-direction: column;
 }
 
-.card:hover {
-	border: 1px solid black;
+.cardA:hover {
+	border: 1px solid #2d89f1;
 	transform: scale(1.05);
 }
 
-.card:active {
+.cardA:active {
 	transform: scale(0.95) rotateZ(1.7deg);
+}
+
+div[data-slot='mainWrapper'] {
+	height: 100%;
 }

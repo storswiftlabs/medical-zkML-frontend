@@ -1,5 +1,5 @@
 import React from 'react';
-import CheckUpCard from './CheckUpCard';
+import CheckUpCard from './components/CheckUpCard';
 import { Button, Divider } from '@nextui-org/react';
 import { FriendSvg, MySvg } from '@/components/Icon/AcmeLogo';
 
@@ -12,7 +12,7 @@ function Patient({ paginate }: { paginate: (newDirection: number) => void }) {
 		paginate(-1);
 	};
 	return (
-		<div className='flex flex-col h-full w-full'>
+		<div className='flex flex-col h-full w-full pt-[4rem]'>
 			<div className='flex justify-center items-center h-full gap-28'>
 				<div onClick={onSubmit}>
 					<CheckUpCard>
@@ -27,15 +27,12 @@ function Patient({ paginate }: { paginate: (newDirection: number) => void }) {
 					</CheckUpCard>
 				</div>
 			</div>
-			<div className='h-[4.6rem]'>
+			<div className='h-[4.6rem] mt-[4rem]'>
 				<Divider />
 				<div className='flex items-center justify-between p-4'>
 					<Button onPress={onBack} radius='sm' color='primary'>
 						Back
 					</Button>
-					{/* <Button type='submit' onPress={onSubmit} radius='sm' color='primary'>
-						Next
-					</Button> */}
 					<div></div>
 				</div>
 			</div>

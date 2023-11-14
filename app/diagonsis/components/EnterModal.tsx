@@ -25,9 +25,7 @@ import { useAccount } from 'wagmi';
 
 function EnterModal({
 	isOpen,
-	onOpen,
 	onClose,
-	handleOpen,
 	enterObject,
 	operatorList,
 }: {

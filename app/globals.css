@@ -57,3 +57,24 @@ body {
 .ant-steps-item-description {
 	height: 3rem;
 }
+
+.process-form .ant-form-item-control-input-content {
+	width: 100%;
+	display: flex;
+	justify-content: end;
+	font-size: 1.2rem;
+}
+
+.process-form .ant-radio-wrapper span {
+	font-size: 1rem;
+}
+
+.process-form .ant-form-item-explain-error {
+	display: flex;
+	justify-content: end;
+	padding-right: 5.6rem;
+}
+.process-form .ant-form-item {
+	margin-bottom: 0.2rem;
+}
+

@@ -1,9 +1,9 @@
 import React from 'react';
-import './index.css';
+import '../index.css';
 
 function CheckUpCard({ children }: { children: React.ReactNode }) {
 	return (
-		<div className='card'>
+		<div className='cardA'>
             {children}
 		</div>
 	);

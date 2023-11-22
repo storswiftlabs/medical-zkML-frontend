@@ -2,7 +2,7 @@ import DiagnosticFramework from '@/components/DiagnosticFramework';
 import { Button, Chip, Listbox, ListboxItem } from '@nextui-org/react';
 import { Select, SelectProps, Space } from 'antd';
 import React, { useState } from 'react';
-import { animals } from './components/data.js';
+import { BodyStructure, animals } from './components/data.js';
 
 function Symptoms({ paginate }: { paginate: (newDirection: number) => void }) {
 	const [valueList, setValueList] = useState([] as string[]);
@@ -90,7 +90,7 @@ function Symptoms({ paginate }: { paginate: (newDirection: number) => void }) {
 					placeholder='Search, e.g., headache'
 					onChange={handleChange}
 					style={{ width: '100%' }}
-					options={animals}
+					options={BodyStructure}
 				/>
 			</div>
 			<div className='mb-[1.5rem] mx-[1rem] p-4 h-[16rem] bg-[#fff] overflow-y-auto rounded-lg'>

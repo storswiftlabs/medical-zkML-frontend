@@ -50,7 +50,9 @@ function EnterModal({
 	const [value, setValue1] = useState(0);
 	const selectedValue = useMemo(() => Array.from(selectedKeys).join(', ').replaceAll('_', ' '), [selectedKeys]);
 	const [[page, direction], setPage] = useState([0, 0]);
-
+	console.log(enterObject,'enterObject');
+	console.log(operatorList,'operatorList');
+	
 	const onSubmit = useCallback(
 		async (data: any) => {
 			if (Array.from(selectedKeys)[0] === 'Choose the engine you need') {

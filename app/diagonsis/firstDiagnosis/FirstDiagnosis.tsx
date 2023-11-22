@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import {Steps } from 'antd';
+import { Steps } from 'antd';
 import { motion, AnimatePresence } from 'framer-motion';
 import IntroductionComponentA from './IntroductionComponentA';
 import IntroductionComponentB from './IntroductionComponentB';
@@ -71,7 +71,7 @@ function FirstDiagnosis() {
 		setPage([page + newDirection, newDirection]);
 	};
 
-	const AnimationComponent = [IntroductionComponentA, IntroductionComponentB, Patient, Sex, AgeOld, SelectionProcess, Symptoms, ClosePage];
+	const AnimationComponent = [IntroductionComponentA, IntroductionComponentB, Patient, Sex, AgeOld, SelectionProcess, ClosePage, Symptoms];
 
 	useEffect(() => {
 		if (0 <= page && page <= 1) {
@@ -80,7 +80,7 @@ function FirstDiagnosis() {
 			setStepsNumber(1);
 		} else if (4 <= page && page < 7) {
 			setStepsNumber(2);
-		}else{
+		} else {
 			setStepsNumber(3);
 		}
 	}, [page]);
